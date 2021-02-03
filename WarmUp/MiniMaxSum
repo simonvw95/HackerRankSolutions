@@ -1,0 +1,33 @@
+Problem:
+https://www.hackerrank.com/challenges/mini-max-sum/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the miniMaxSum function below.
+def miniMaxSum(arr):
+    n = len(arr)
+    for i in range(n):
+        if arr[i] < 1 or arr[i] > (10**9):
+            return 'Constraints violated'
+        for j in range((i + 1), n):
+            val1 = arr[i]
+            val2 = arr[j]
+            if val1 < val2:
+                arr[j] = val1
+                arr[i] = val2
+    max_sum = sum(arr[0:(n-1)])
+    min_sum = sum(arr[1:(n)])
+    print(min_sum, max_sum)
+if __name__ == '__main__':
+    arr = list(map(int, input().rstrip().split()))
+
+    miniMaxSum(arr)
