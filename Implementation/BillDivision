@@ -1,0 +1,36 @@
+Problem:
+https://www.hackerrank.com/challenges/bon-appetit/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the bonAppetit function below.
+def bonAppetit(bill, k, b):
+    correct_charge = (sum(bill) - bill[k]) / 2
+    
+    diff = abs(correct_charge - b)
+    if diff == 0:
+        print("Bon Appetit")
+    else:
+        print(int(diff))
+        
+if __name__ == '__main__':
+    nk = input().rstrip().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    bill = list(map(int, input().rstrip().split()))
+
+    b = int(input().strip())
+
+    bonAppetit(bill, k, b)
