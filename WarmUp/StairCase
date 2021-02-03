@@ -1,0 +1,27 @@
+Problem:
+https://www.hackerrank.com/challenges/staircase/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the staircase function below.
+def staircase(n):
+    if n <= 0 or n > 100:
+        return 'Constraints violated'
+    for i in range(n):
+        spaces = ' ' * (n - i - 1)
+        hashtags = '#' * (i + 1)
+        print(spaces + hashtags)
+
+if __name__ == '__main__':
+    n = int(input())
+
+    staircase(n)
