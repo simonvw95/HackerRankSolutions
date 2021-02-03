@@ -1,0 +1,40 @@
+Problem:
+https://www.hackerrank.com/challenges/plus-minus/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the plusMinus function below.
+def plusMinus(arr):
+    positive = 0
+    negative = 0
+    zeros = 0
+    n = len(arr)
+    if n > 100:
+        return 'Constraints violated'
+    for i in arr:
+        if i < -100 or i > 100:
+            return 'Constraints violated'
+        if i > 0:
+            positive += 1 / n
+        elif i < 0:
+            negative += 1 / n
+        else:
+            zeros += 1 / n
+    print(round(positive, 6))
+    print(round(negative, 6))
+    print(round(zeros, 6))
+if __name__ == '__main__':
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    plusMinus(arr)
