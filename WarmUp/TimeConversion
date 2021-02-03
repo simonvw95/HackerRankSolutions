@@ -1,0 +1,43 @@
+Problem:
+https://www.hackerrank.com/challenges/time-conversion/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import os
+import sys
+
+#
+# Complete the timeConversion function below.
+#
+def timeConversion(s):
+    digits = []
+    for i in s:
+        if i.isdigit():
+            digits.append(int(i))
+
+    if s[-2] == 'P':
+        if s[0] == '1' and s[1] == '2':
+            digits[0] = 0
+            digits[1] = 0
+        digits[0] += 1
+        digits[1] = str(int(digits[1]) + 2)
+    
+    if s[-2] == 'A' and s[0] == '1' and s[1] == '2' :
+        digits[0] = 0
+        digits[1] = 0
+    return str(digits[0]) + str(digits[1]) + ':' + str(digits[2]) + str(digits[3]) + ':' + str(digits[4]) + str(digits[5])
+
+
+if __name__ == '__main__':
+    f = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = timeConversion(s)
+
+    f.write(result + '\n')
+
+    f.close()
