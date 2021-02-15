@@ -1,0 +1,41 @@
+Problem:
+https://www.hackerrank.com/challenges/permutation-equation/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the permutationEquation function below.
+def permutationEquation(p):
+    ordered_a = sorted(p)
+    dict_a = {}
+    y_a = [0] * len(p)
+    for i in range(len(p)):
+        dict_a[p[i]] = i + 1
+    
+    for i in range(len(p)):
+        y_a[i] = dict_a[dict_a[i + 1]]
+        
+    return y_a
+        
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    p = list(map(int, input().rstrip().split()))
+
+    result = permutationEquation(p)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
