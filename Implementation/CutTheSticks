@@ -1,0 +1,50 @@
+Problem:
+https://www.hackerrank.com/challenges/cut-the-sticks/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the cutTheSticks function below.
+def cutTheSticks(arr):
+    cnt_arr = [len(arr)]
+    
+    
+    while True:
+        min_val = min(arr)
+        arr_copy = []
+        for i in range(len(arr)):
+            new_val = arr[i] - min_val
+            if new_val > 0:
+                arr_copy.append(new_val)
+       
+        arr = arr_copy
+        if arr:
+            cnt_arr.append(len(arr))
+        if not arr:
+            print("here")
+            break
+    return cnt_arr
+            
+            
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = cutTheSticks(arr)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
