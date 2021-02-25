@@ -1,0 +1,73 @@
+Problem:
+https://www.hackerrank.com/challenges/non-divisible-subset/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+import collections
+
+#
+# Complete the 'nonDivisibleSubset' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER k
+#  2. INTEGER_ARRAY s
+#
+
+def nonDivisibleSubset(k, nums):
+    
+    answer = 0
+    
+    remainder_arr = []
+    for i in range(len(s)):
+        val = s[i] % k
+        if val == 0:
+            answer = 1
+        else:
+            remainder_arr.append(val)
+        
+    freq = [0] * k
+    for i in range(len(remainder_arr)):
+        freq[remainder_arr[i]] += 1
+    
+    index_arr = []
+    
+    for i in range(len(remainder_arr)):
+        cnt_max = max(freq)
+        ind_max = freq.index(cnt_max)
+        
+        if k - ind_max not in index_arr and cnt_max != 0:
+            index_arr.append(ind_max)
+            if (ind_max * 2) % k == 0:
+                answer +=1
+            else:
+                answer += cnt_max
+        
+        freq[ind_max] = 0         
+                
+    return answer
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    k = int(first_multiple_input[1])
+
+    s = list(map(int, input().rstrip().split()))
+
+    result = nonDivisibleSubset(k, s)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
