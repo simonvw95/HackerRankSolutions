@@ -1,0 +1,158 @@
+Problem:
+https://www.hackerrank.com/challenges/queens-attack-2/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the queensAttack function below.
+def queensAttack(n, k, r_q, c_q, obstacles):
+    
+    no_moves = 0
+    
+    if n > 1:
+        no_north = n - r_q
+        no_south = n - no_north - 1
+        no_east = n - c_q
+        no_west = n - no_east - 1
+        
+        no_nw = min([no_north, no_west])
+        no_ne = min([no_north, no_east])
+        no_se = min([no_south, no_east])
+        no_sw = min([no_south, no_west])
+        
+        # there may be duplicate obstacles in the list so therefore only get uniques
+        dis_obs_north = None
+        dis_obs_south = None
+        dis_obs_east = None
+        dis_obs_west = None
+        dis_obs_nw = None
+        dis_obs_ne = None
+        dis_obs_se = None
+        dis_obs_sw = None
+        for obst in obstacles:
+            row_obs = obst[0]
+            col_obs = obst[1]
+            
+            # obstacles on the same column
+            if col_obs == c_q:
+                new = abs(row_obs - r_q) - 1
+                # distance to north
+                if row_obs > r_q:
+                    if dis_obs_north:
+                        if new <= dis_obs_north:
+                            dis_obs_north = new
+                    else:
+                        dis_obs_north = new
+                # distance to south
+                if row_obs < r_q:
+                    if dis_obs_south:
+                        if new <= dis_obs_south:
+                            dis_obs_south = new
+                    else:
+                        dis_obs_south = new
+            # obstacles on the same row
+            if row_obs == r_q:
+                new = abs(col_obs - c_q) - 1
+                # distance to east
+                if col_obs > c_q:
+                    if dis_obs_east:
+                        if new <= dis_obs_east:
+                            dis_obs_east = new
+                    else:
+                        dis_obs_east = new
+                # distance to west
+                if col_obs < c_q:
+                    if dis_obs_west:
+                        if new <= dis_obs_west:
+                            dis_obs_west = new
+                    else:
+                        dis_obs_west = new
+                        
+            # check if the obstacle is on a diagonal
+            if abs(row_obs - r_q) == abs(col_obs - c_q):
+                new = min([abs(row_obs - r_q) - 1, abs(col_obs - c_q) - 1])
+                # obstacles on north west
+                if row_obs > r_q and col_obs < c_q:
+                    if dis_obs_nw:
+                        if new <= dis_obs_nw:
+                            dis_obs_nw = new
+                    else:
+                        dis_obs_nw = new
+                # obstacles on south west
+                if row_obs < r_q and col_obs < c_q:
+                    if dis_obs_sw:
+                        if new <= dis_obs_sw:
+                            dis_obs_sw = new
+                    else:
+                        dis_obs_sw = new
+                # obstacles on north east
+                if row_obs > r_q and col_obs > c_q:
+                    if dis_obs_ne:
+                        if new <= dis_obs_ne:
+                            dis_obs_ne = new
+                    else:
+                        dis_obs_ne = new
+                # obstacles on south east
+                if row_obs < r_q and col_obs > c_q:
+                    if dis_obs_se:
+                        if new <= dis_obs_se:
+                            dis_obs_se = new
+                    else:
+                        dis_obs_se = new
+                
+                    
+                
+        if dis_obs_north != None:
+            no_north = dis_obs_north
+        if dis_obs_south != None:
+            no_south = dis_obs_south
+        if dis_obs_east != None:
+            no_east = dis_obs_east
+        if dis_obs_west != None:
+            no_west = dis_obs_west
+            
+        if dis_obs_nw != None:
+            no_nw = dis_obs_nw
+        if dis_obs_ne != None:
+            no_ne = dis_obs_ne
+        if dis_obs_sw != None:
+            no_sw = dis_obs_sw
+        if dis_obs_se != None:
+            no_se = dis_obs_se    
+                        
+        no_moves = no_north + no_south + no_east + no_west + no_nw + no_ne + no_se + no_sw
+    
+    return no_moves
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    r_qC_q = input().split()
+
+    r_q = int(r_qC_q[0])
+
+    c_q = int(r_qC_q[1])
+
+    obstacles = []
+
+    for _ in range(k):
+        obstacles.append(list(map(int, input().rstrip().split())))
+
+    result = queensAttack(n, k, r_q, c_q, obstacles)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
