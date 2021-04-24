@@ -1,0 +1,56 @@
+Problem:
+https://www.hackerrank.com/challenges/encryption/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'encryption' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts STRING s as parameter.
+#
+
+def encryption(s):
+    
+    clean_s = s.replace(' ', '')
+    sq_rt = math.sqrt(len(clean_s))
+    floor = math.floor(sq_rt)
+    ceil = math.ceil(sq_rt)
+    
+    if (floor * ceil) < len(clean_s):
+        floor += 1
+        
+    final_s = ''
+    i = 0
+    j = 0
+
+    while len(final_s) < (len(clean_s) + ceil - 1):
+        final_s += clean_s[i + j]
+        j += ceil
+        
+        if (j + i) > (len(clean_s) - 1):
+            j = 0
+            i += 1
+            final_s += ' '
+
+    return final_s
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = encryption(s)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
