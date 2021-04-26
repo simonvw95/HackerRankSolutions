@@ -1,0 +1,71 @@
+Problem:
+https://www.hackerrank.com/challenges/minimum-distances/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'minimumDistances' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER_ARRAY a as parameter.
+#
+
+def minimumDistances(a):
+    
+    indices = dict.fromkeys(a, [])
+
+    # loop over all the integers
+    for i in range(len(a)):
+        curr_list = indices[a[i]].copy()
+        
+        curr_list += [i]
+        if len(curr_list) > 3:
+            # 3 pairs to be concerned with
+            three_pairs = {}
+            three_pairs[(curr_list[0], curr_list[1])] = curr_list[1] - curr_list[0]
+            three_pairs[(curr_list[1], curr_list[2])] = curr_list[2] - curr_list[1]
+            three_pairs[(curr_list[2], curr_list[3])] = curr_list[3] - curr_list[2]
+            # update the current list to be the lowest value pair
+            curr_list = list(sorted(three_pairs, key = lambda x: x[1])[0])
+        
+        indices[a[i]] = curr_list
+        
+    shortest = 1*10**5 + 1
+    for i in indices:
+        for j in range(len(indices[i])):
+            for k in range(j + 1, len(indices[i])):
+                dis = indices[i][k] - indices[i][j]
+                if dis < shortest:
+                    shortest = dis
+                    
+    if shortest == 1*10**5 + 1:
+        shortest = -1
+        
+    return shortest
+                    
+            
+        
+
+                    
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    a = list(map(int, input().rstrip().split()))
+
+    result = minimumDistances(a)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
