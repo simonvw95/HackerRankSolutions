@@ -1,0 +1,56 @@
+Problem:
+https://www.hackerrank.com/challenges/bigger-is-greater/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+from itertools import permutations
+
+#
+# Complete the 'biggerIsGreater' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts STRING w as parameter.
+#
+
+
+def biggerIsGreater(w):
+    w = list(w)
+    idx = len(w) - 2
+    
+    while not (idx < 0 or w[idx] < w[idx + 1]):
+        idx -= 1
+        
+    if idx < 0:
+        answer = 'no answer'
+    else:
+        idx_2 = len(w) - 1
+        while not (w[idx_2] > w[idx]):
+            idx_2 -= 1
+        w[idx], w[idx_2] = w[idx_2], w[idx]
+        w[idx + 1:] = reversed(w[idx + 1:])
+        answer = ''.join(w)
+        
+    return answer
+    
+ 
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    T = int(input().strip())
+
+    for T_itr in range(T):
+        w = input()
+
+        result = biggerIsGreater(w)
+
+        fptr.write(result + '\n')
+
+    fptr.close()
