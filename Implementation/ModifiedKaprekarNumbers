@@ -1,0 +1,60 @@
+Problem:
+https://www.hackerrank.com/challenges/kaprekar-numbers/problem
+
+Solution:
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'kaprekarNumbers' function below.
+#
+# The function accepts following parameters:
+#  1. INTEGER p
+#  2. INTEGER q
+#
+
+def kaprekarNumbers(p, q):
+    
+    kapr_list = []
+    
+    for i in range(p, (q + 1)):
+        
+        no_sq = str(i ** 2)
+        d = len(str(no_sq))
+        
+        l = no_sq[0 : int(d / 2)]
+        r = int(no_sq[int(d / 2) : ])
+        
+        if not l:
+            l = 0
+        else:
+            l = int(l)
+            
+        if (l + r) == i:
+            kapr_list.append(str(i))
+            
+    
+    if kapr_list:
+        answer = ''
+        for i in kapr_list:
+            answer += i + ' '
+        print(answer)
+    else:
+        print('INVALID RANGE')
+        
+    
+        
+
+if __name__ == '__main__':
+    p = int(input().strip())
+
+    q = int(input().strip())
+
+    kaprekarNumbers(p, q)
